@@ -1,0 +1,40 @@
+table:
+  name: todo
+  schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - description
+    - is_done
+    set:
+      user: x-hasura-user-id
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - description
+    - id
+    - is_done
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: user
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - description
+    - id
+    - is_done
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
+    filter:
+      user:
+        _eq: X-Hasura-User-Id
+  role: user

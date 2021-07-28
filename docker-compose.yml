@@ -1,0 +1,31 @@
+version: "3.6"
+services:
+  postgres:
+    image: postgres:12
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  graphql-engine:
+    image: hasura/graphql-engine:v2.0.3.cli-migrations-v3
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "postgres"
+    restart: always
+    volumes:
+      - ${PWD}/migrations:/hasura-migrations
+      - ${PWD}/metadata:/hasura-metadata
+    environment:
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres
+      PG_DATABASE_URL: postgres://postgres:password@postgres:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ADMIN_SECRET: admin-secret
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "3EK6FD+o0+c7tzBNVfjpMkNDi2yARAAKzQlk8O2IKoxQu4nF7EdAh8s3TwpHwrdWT6R", "claims_map": { "x-hasura-allowed-roles": { "path": "$$.roles" }, "x-hasura-default-role": { "path": "$$.roles[0]" }, "x-hasura-client-id": { "path": "$$.clientId", "default": "" }, "x-hasura-user-id": { "path": "$$.userId", "default": "" }, "x-hasura-username": { "path": "$$.username", "default": "" } }}'
+volumes:
+  db_data:

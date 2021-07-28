@@ -1,0 +1,15 @@
+query GetTodos {
+  todo {
+    id
+    description
+    is_done
+  }
+}
+
+mutation AddTodo($description: String = "", $is_done: Boolean = false) {
+  insert_todo(objects: { description: $description, is_done: $is_done }) {
+    returning {
+      id
+    }
+  }
+}

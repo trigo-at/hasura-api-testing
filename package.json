@@ -1,0 +1,29 @@
+{
+  "name": "hasura-api-testing",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "jest --runInBand",
+    "codegen": "graphql-codegen --config codegen.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.7",
+    "@graphql-codegen/introspection": "^1.18.2",
+    "@graphql-codegen/typescript": "^1.23.0",
+    "@graphql-codegen/typescript-graphql-request": "^3.2.5",
+    "@graphql-codegen/typescript-operations": "^1.18.4",
+    "@graphql-codegen/typescript-resolvers": "^1.20.0",
+    "@types/jest": "^26.0.24",
+    "@types/pg": "^8.6.1",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.5.1",
+    "graphql-request": "^3.4.0",
+    "jest": "^27.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.6.0",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
+  }
+}
